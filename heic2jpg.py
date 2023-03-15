@@ -1,5 +1,6 @@
 import os
 import threading
+from datetime import datetime
 
 from PIL import Image
 import pillow_heif
@@ -32,6 +33,7 @@ def convert_folder_heic2jpg(file_folder_path, file_format):
         os.makedirs(output_folder)
 
     # Open files and save in jpg format
+    start_time = datetime.now()
     thread_list = []
     for file_path in heic_files:
         print("Opening", file_path)
@@ -41,7 +43,8 @@ def convert_folder_heic2jpg(file_folder_path, file_format):
         thread.start()
     for thread in thread_list:
         thread.join()
-    print(f"{len(thread_list)} file(s) converted!")
+    end_time = datetime.now()
+    print(f"{len(thread_list)} file(s) converted in {end_time-start_time}!")
 
 def convert_file(file_path=None, file_format=None, output_folder=None):
     heif_file = pillow_heif.read_heif(file_path)
