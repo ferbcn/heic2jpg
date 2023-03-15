@@ -41,8 +41,8 @@ class MainWindowWidget(QWidget):
         # A Vertical layout to include the button layout and then the image
         layout = QVBoxLayout()
         layout.addWidget(self.icon)
-        layout.addWidget(self.comboBox)
         layout.addWidget(self.message)
+        layout.addWidget(self.comboBox)
         self.setLayout(layout)
 
         # Enable dragging and dropping onto the GUI
