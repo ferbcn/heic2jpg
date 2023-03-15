@@ -32,7 +32,7 @@ def convert_folder_heic2jpg(file_folder_path, file_format):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    # Open files and save in jpg format
+    # Open files and save to output format
     start_time = datetime.now()
     thread_list = []
     for file_path in heic_files:
@@ -44,7 +44,11 @@ def convert_folder_heic2jpg(file_folder_path, file_format):
     for thread in thread_list:
         thread.join()
     end_time = datetime.now()
-    print(f"{len(thread_list)} file(s) converted in {end_time-start_time}!")
+
+    num_files = len(thread_list)
+    print(f"{num_files} file(s) converted in {end_time-start_time}!")
+
+    return num_files
 
 def convert_file(file_path=None, file_format=None, output_folder=None):
     heif_file = pillow_heif.read_heif(file_path)
@@ -58,8 +62,8 @@ def convert_file(file_path=None, file_format=None, output_folder=None):
     if file_format in ["jpg", "jpeg"]:
         output_filename = filename + ".jpg"
         save_file_format = "jpeg"
-    elif file_format == "png":
-        output_filename = filename + ".png"
+    elif file_format in ["png", "gif", "bmp"]:
+        output_filename = filename + "." + file_format
         save_file_format = file_format
 
     output_filepath = output_folder + output_filename

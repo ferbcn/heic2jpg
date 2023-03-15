@@ -4,7 +4,7 @@ Application for converting HEIC-image files used by (Apple IPhones) to regular J
 ![Screenshot](https://github.com/ferbcn/heic2jpg/blob/master/icon.png?raw=true)
 
 ## Usage
-Command line: python heic2jpg_cli.py [file or folder] [output_format: jpg or png] 
+Command line: python3 heic2jpg_cli.py [file or folder] [output_format: jpg or png] 
 
 GUI: drag and drop files or folders into the window
 

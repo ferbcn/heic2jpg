@@ -1,12 +1,13 @@
 import sys
 
-from PyQt6.QtWidgets import QWidget, QApplication, QVBoxLayout, QMainWindow, QLabel, QComboBox
+from PyQt6.QtWidgets import QWidget, QApplication, QVBoxLayout, QMainWindow, QLabel, QComboBox, QDialogButtonBox, \
+    QDialog, QMessageBox
 from PyQt6 import QtCore
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from heic2jpg import convert_folder_heic2jpg
 
-output_file_types = ['jpg', 'png']
+output_file_types = ['jpg', 'png', 'gif', 'bmp']
 
 
 class MainWindowWidget(QWidget):
@@ -72,13 +73,15 @@ class MainWindowWidget(QWidget):
         if e.mimeData().hasUrls:
             e.accept()
             for url in e.mimeData().urls():
-                folder_path = str(url.toLocalFile())
-            print(folder_path)
-            # is it file or folder
-            is_folder = True
-            if is_folder:
-                # run conversion
-                convert_folder_heic2jpg(folder_path, self.output_file_format)
+                file_folder_path = str(url.toLocalFile())
+            print(file_folder_path)
+            # run conversion
+            num_files = convert_folder_heic2jpg(file_folder_path, self.output_file_format)
+
+            dlg = QMessageBox(self)
+            dlg.setWindowTitle("Conversion Result!")
+            dlg.setText(f"{num_files} files coverted!")
+            dlg.exec()
         else:
             e.ignore()
 
